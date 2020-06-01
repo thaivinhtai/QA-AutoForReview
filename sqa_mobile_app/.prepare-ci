@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ ! -d "${PWD}/../sqa_engine" ]; then
+    git clone ${ENGINE_REPO} ${PWD}/../sqa_engine
+else
+    sudo rm -rf ${ENGINE_REPO} ${PWD}/../sqa_engine
+    git clone ${ENGINE_REPO} ${PWD}/../sqa_engine
+fi
+
+if [ ! -d "${PWD}/../sqa_web_portal" ]; then
+    git clone ${WEB_REPO} ${PWD}/../sqa_web_portal
+else
+    sudo rm -rf ${PWD}/../sqa_web_portal
+    git clone ${WEB_REPO} ${PWD}/../sqa_web_portal
+fi
+
+if [ ! -d "${PWD}/../sqa_rest_api" ]; then
+    git clone ${API_REPO} ${PWD}/../sqa_rest_api
+else
+    sudo rm -rf ${API_REPO} ${PWD}/../sqa_rest_api
+    git clone ${API_REPO} ${PWD}/../sqa_rest_api
+fi

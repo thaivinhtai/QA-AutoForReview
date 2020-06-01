@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ ! -d "${PWD}/../sqa_engine" ]; then
+    git clone ${ENGINE_REPO} ${PWD}/../sqa_engine
+else
+    rm -rf ${ENGINE_REPO} ${PWD}/../sqa_engine
+    git clone ${ENGINE_REPO} ${PWD}/../sqa_engine
+fi
+
+if [ ! -d "${PWD}/../sqa_rest_api" ]; then
+    git clone ${API_REPO} ${PWD}/../sqa_rest_api
+else
+    rm -rf ${PWD}/../sqa_rest_api
+    git clone ${API_REPO} ${PWD}/../sqa_rest_api
+fi
+
+if [ ! -d "${PWD}/../sqa_mobile_app" ]; then
+    git clone ${MOBILE_REPO} ${PWD}/../sqa_mobile_app
+else
+    rm -rf ${MOBILE_REPO} ${PWD}/../sqa_mobile_app
+    git clone ${MOBILE_REPO} ${PWD}/../sqa_mobile_app
+fi

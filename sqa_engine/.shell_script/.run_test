@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [ $TEST_MODULE == "mobile_app" ]; then
+  cd $ENGINE_PATH && sudo -E python3 main.py \
+  --module ${TEST_MODULE} \
+  --test-domain ${test_design} \
+  --level ${LEVEL} \
+  --version ${VERSION} \
+  --mode auto \
+  --run-job \
+  ${BROWSER} \
+  ${MOBILE_DEVICE} \
+  ${MOBILE_PLATFORM} \
+  ${MOBILE_PLATFORM_VER} \
+  ${APP} \
+  ${RUN_APPIUM_SERVER}
+else
+    cd $ENGINE_PATH && python3 main.py \
+  --module ${TEST_MODULE} \
+  --test-domain ${test_design} \
+  --level ${LEVEL} \
+  --version ${VERSION} \
+  --mode auto \
+  --run-job \
+  ${BROWSER}
+fi

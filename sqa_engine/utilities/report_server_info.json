@@ -1,0 +1,16 @@
+{
+  "_comment": "",
+  "server_address": "",
+  "version_api_endpoint": "/version",
+  "version_api_method": "GET",
+  "send-results_api_endpoint": "/send-results",
+  "send-results_api_method": "POST",
+  "generate-report_api_endpoint": "/generate-report",
+  "generate-report_api_method": "GET",
+  "clean-results_api_endpoint": "/generate-report",
+  "clean-results_api_method": "GET",
+  "render-emailable_api_endpoint": "/emailable-report/render",
+  "render-emailable_api_method": "GET",
+  "export-emailable_api_endpoint": "/emailable-report/export",
+  "export-emailable_api_method": "GET"
+}

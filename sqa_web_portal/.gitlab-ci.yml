@@ -1,0 +1,30 @@
+variables:
+  TEST_DOMAIN: tds1
+  LEVEL: REG2
+  VERSION: '1.1'
+  BROWSER: chrome
+  BASE_REPO: "https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/..."
+  ENGINE_REPO: "${BASE_REPO}sqa_engine.git"
+  API_REPO: "${BASE_REPO}sqa_rest_api.git"
+  MOBILE_REPO: "${BASE_REPO}sqa_mobile_app.git"
+
+web_portal_testing:
+  tags:
+    - web_portal
+  script:
+    - export ENGINE_REPO="${BASE_REPO}sqa_engine.git"
+    - export API_REPO="${BASE_REPO}sqa_rest_api.git"
+    - export MOBILE_REPO="${BASE_REPO}sqa_mobile_app.git"
+    - export TEST_MODULE="web_portal"
+    - export TEST_DOMAIN=${TEST_DOMAIN}
+    - export LEVEL=${LEVEL}
+    - export VERSION=${VERSION}
+    - export BROWSER="--browser ${BROWSER}"
+    - export ENGINE_REPO=${ENGINE_REPO}
+    - export MOBILE_REPO=${MOBILE_REPO}
+    - export API_REPO=${API_REPO}
+    - export ENGINE_PATH="${PWD}/../sqa_engine/"
+    - bash .prepare-ci
+    - source ${ENGINE_PATH}.shell_script/.environment
+    - bash ${ENGINE_PATH}.shell_script/.run_test
+    - git remote show origin

@@ -1,0 +1,53 @@
+variables:
+  TEST_DOMAIN: demo
+  LEVEL: REG2
+  VERSION: '1.1'
+  MOBILE_DEVICE: pixel_xl
+  MOBILE_PLATFORM_VER: '10'
+  APP: '/root/workspace/app.apk'
+  BASE_REPO: "https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/...."
+
+mobile_app_android_testing:
+  tags:
+    - app_android
+  script:
+    - export ENGINE_REPO="${BASE_REPO}sqa_engine.git"
+    - export WEB_REPO="${BASE_REPO}sqa_web_portal.git"
+    - export API_REPO="${BASE_REPO}sqa_rest_api.git"
+    - export TEST_MODULE="mobile_app"
+    - export TEST_DOMAIN=${TEST_DOMAIN}
+    - export LEVEL=${LEVEL}
+    - export VERSION=${VERSION}
+    - export MOBILE_DEVICE="--mobile-device ${MOBILE_DEVICE}"
+    - export MOBILE_PLATFORM="--mobile-platform Android"
+    - export MOBILE_PLATFORM_VER="--mobile-platform-ver ${MOBILE_PLATFORM_VER}"
+    - export APP="--app ${APP}"
+    - export RUN_APPIUM_SERVER="--run-appium-server"
+    - export ENGINE_REPO=${ENGINE_REPO}
+    - export API_REPO=${API_REPO}
+    - export WEB_REPO=${WEB_REPO}
+    - export ENGINE_PATH="${PWD}/../sqa_engine/"
+    - bash .prepare-ci
+    - source ${ENGINE_PATH}.shell_script/.environment
+    - bash ${ENGINE_PATH}.shell_script/.run_test
+
+mobile_app_ios_testing:
+  tags:
+    - app_ios
+  script:
+    - export TEST_MODULE="mobile_app"
+    - export TEST_DOMAIN=${TEST_DOMAIN}
+    - export LEVEL=${LEVEL}
+    - export VERSION=${VERSION}
+    - export MOBILE_DEVICE="--mobile-device ${MOBILE_DEVICE}"
+    - export MOBILE_PLATFORM="--mobile-platform ios"
+    - export MOBILE_PLATFORM_VER="--mobile-platform-ver ${MOBILE_PLATFORM_VER}"
+    - export APP="--app ${APP}"
+    - export RUN_APPIUM_SERVER="--run-appium-server"
+    - export ENGINE_REPO=${ENGINE_REPO}
+    - export API_REPO=${API_REPO}
+    - export WEB_REPO=${WEB_REPO}
+    - export ENGINE_PATH="${PWD}/../sqa_engine/"
+    - bash .prepare-ci
+    - source ${ENGINE_PATH}.shell_script/.environment
+    - bash ${ENGINE_PATH}shell_script/.run_test

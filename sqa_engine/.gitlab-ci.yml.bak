@@ -1,0 +1,77 @@
+stages:
+  - system_update
+  - repo_update
+  - test
+
+variables:
+  EXECUTOR: /root/workspace/sqa_engine/main.py
+  ENGINE_PATH: /root/workspace/sqa_engine/
+  WEB_PORTAL_PATH: /root/workspace/sqa_web_portal
+  MOBILE_APP_PATH: /root/workspace/sqa_mobile_app
+  REST_API_PATH: /root/workspace/sqa_rest_api
+  ANDROID_SDK_PATH: /root/workspace/sqa_tools/android_sdk/tools/bin
+  APP_PATH: /root/workspace/app.apk
+  ENGINE_BRANCH: master
+  MOBILE_APP_BRANCH: master
+  WEB_PORTAL_BRANCH: master
+  REST_API_BRANCH: master
+  PROXY: http://10.10.10.10:8080
+  NO_PROXY: localhost,127.0.0.1,0.0.0.0,127.0.0.2
+
+update_system:
+  stage: system_update
+  tags:
+    - automation
+    - web_portal
+    - rest_api
+    - mobile_app
+  script:
+#    - sudo bash -c 'http_proxy="http://10.10.10.10:8080/" apt-get update'
+#    - sudo bash -c 'http_proxy="http://10.10.10.10:8080/" apt-get upgrade -y'
+#    - sudo ${ANDROID_SDK_PATH}/sdkmanager --no_https --proxy=http --proxy_host=10.10.10.10 --proxy_port=8080 emulator
+#    - sudo git -C ${ENGINE_PATH} checkout .
+#    - sudo git -C ${ENGINE_PATH} checkout ${ENGINE_BRANCH}
+#    - sudo git -C ${ENGINE_PATH} pull origin ${ENGINE_BRANCH}
+
+web_portal_update:
+  stage: repo_update
+  tags:
+    - web_portal
+  script:
+    - sudo git -C ${WEB_PORTAL_PATH} checkout .
+    - sudo git -C ${WEB_PORTAL_PATH} checkout ${WEB_PORTAL_BRANCH}
+    - sudo git -C ${WEB_PORTAL_PATH} pull  origin ${WEB_PORTAL_BRANCH}
+
+#mobile_app_update:
+#  stage: repo_update
+#  tags:
+#    - mobile_app
+#  script:
+#    - sudo git -C ${MOBILE_APP_PATH} checkout .
+#    - sudo git -C ${MOBILE_APP_PATH} checkout ${MOBILE_APP_BRANCH}
+#    - sudo git -C ${MOBILE_APP_PATH} pull origin ${MOBILE_APP_BRANCH}
+
+rest_api_update:
+  stage: repo_update
+  tags:
+    - rest_api
+  script:
+    - sudo git -C ${REST_API_PATH} checkout .
+    - sudo git -C ${REST_API_PATH} checkout ${REST_API_BRANCH}
+    - sudo git -C ${REST_API_PATH} pull origin ${REST_API_BRANCH}
+
+web_portal_testing:
+  stage: test
+  tags:
+    - web_portal
+  script:
+#    - sudo bash -c "HOME='/root' no_proxy=${NO_PROXY} http_proxy=${PROXY} https_proxy=${PROXY} python3 ${ENGINE_PATH}/main.py --module web_portal --test-domain tds1 --level REG2 --version 1.1 --browser chrome --mode auto --run-job"
+    - python3 main.py --module web_portal --test-domain tds1 --level REG2 --version 1.1 --browser chrome --mode auto --run-job
+
+mobile_app_testing:
+  stage: test
+  tags:
+    - mobile_app
+  script:
+#    - sudo bash -c "HOME='/root' no_proxy=${NO_PROXY} http_proxy=${PROXY} https_proxy=${PROXY} python3 ${ENGINE_PATH}/main.py --module mobile_app --test-domain demo --mode auto --level REG2 --mobile-device pixel_xl --mobile-platform Android --mobile-platform-ver 10 --app '/root/workspace/app.apk' --version 1.1.1 --run-job --run-appium-server"
+    - python3 main.py --module mobile_app --test-domain demo --mode auto --level REG2 --mobile-device pixel_xl --mobile-platform Android --mobile-platform-ver 10 --app '/root/workspace/app.apk' --version 1.1.1 --run-job --run-appium-server

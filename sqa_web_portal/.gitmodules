@@ -1,0 +1,3 @@
+[submodule "sqa_engine"]
+  path = ../sqa_engine
+  url = ../sqa_engine.git

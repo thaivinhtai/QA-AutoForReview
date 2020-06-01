@@ -1,0 +1,11 @@
+#!/bin/bash
+
+PROXY=''
+
+export NO_PROXY='127.0.0.1,localhost,0.0.0.0,127.0.0.2'
+export HTTP_PROXY=${PROXY}
+export HTTPS_PROXY=${PROXY}
+
+export ANDROID_AVD_HOME='/home/gitlab-runner/.android/avd'
+
+export SQA_TOOLS='/home/gitlab-runner/sqa_tools'
